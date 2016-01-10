@@ -2,7 +2,7 @@ describe('NameParts.js', function() {
     var NameParts;
 
     beforeEach(function() {
-        NameParts = require('../lib/NameParts.js');
+        NameParts = require('../nameparts.js');
     });
 
     it('should load', function() {

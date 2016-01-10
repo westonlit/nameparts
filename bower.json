@@ -1,0 +1,25 @@
+{
+  "name": "nameparts",
+  "description": "Splits full names into individual parts (first, middle, last, etc.)",
+  "main": "nameparts.js",
+  "keywords": [
+    "name",
+    "surname",
+    "firstname",
+    "lastname",
+    "salutation",
+    "alias",
+    "title"
+  ],
+  "homepage": "https://github.com/Ghary/nameparts",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec"
+  ]
+}

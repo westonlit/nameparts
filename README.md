@@ -7,7 +7,7 @@ address a problem splitting full names into individual parts (first, middle, las
 
 You can use it like this:
 ```
-> var NameParts = require('./lib/NameParts.js');
+> var NameParts = require('nameparts');
 > var parts = NameParts.parse('Bruce Wayne a/k/a Batman');
 > parts.firstName;
 'Bruce'
@@ -20,7 +20,7 @@ You can use it like this:
 Installing
 ----------
 ```
-npm install NameParts
+npm install nameparts
 ```
 
 License
