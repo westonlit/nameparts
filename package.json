@@ -1,7 +1,7 @@
 {
   "name": "nameparts",
   "description": "Splits full names into individual parts (first, middle, last, etc.)",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "http://github.com/Ghary/nameparts.git"
