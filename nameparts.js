@@ -95,7 +95,7 @@
 
             // Has LN Prefix?
             if (output.hasLnPrefix !== true) {
-                output.hasLnPrefix = LNPREFIXES.indexOf(namePieceUpperCase) !== -1;
+                output.hasLnPrefix = LNPREFIXES.indexOf(namePieceUpperCase) !== -1 && namePiecesIndex !== 0;
                 if (output.hasLnPrefix === true) {
                     namePieces[namePiecesIndex] += ' ' + namePieces[namePiecesIndex + 1];
                     namePieces.splice(namePiecesIndex + 1, 1);
