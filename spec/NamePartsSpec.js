@@ -325,14 +325,12 @@ describe('NameParts.js', function() {
             expect(nameParts.hasLnPrefix).toBe(false);
         });
 
-        /*
-        xit('should parse a name with multiple middle names', function() {
+        it('should parse a name with multiple middle names', function() {
             var nameParts = NameParts.parse('George Herbert Walker Bush');
-            assert.equal(nameParts.firstName, 'George');
-            assert.equal(nameParts.middleName, 'Herbert Walker');
-            assert.equal(nameParts.lastName, 'Bush');
+            expect(nameParts.firstName).toBe('George');
+            expect(nameParts.middleName).toBe('Herbert Walker');
+            expect(nameParts.lastName).toBe('Bush');
         });
-        */
 
         /*
         xit('should parse a name with extraneous information', function() {

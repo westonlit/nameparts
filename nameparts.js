@@ -153,6 +153,10 @@
             // Has supplemental info?
             if (output.hasSupplementalInfo !== true) {
                 output.hasSupplementalInfo = SUPPLEMENTAL_INFO.indexOf(namePieceUpperCase) !== -1;
+
+                if (output.hasSupplementalInfo === true) {
+                    namePieces.splice(namePiecesIndex, 1);
+                }
             }
 
             // Increment index
@@ -165,11 +169,10 @@
 
         // The rest
         if (namePieces.length > 1) {
-            output.middleName = namePieces[0];
-            output.lastName = namePieces[1];
-        } else {
-            output.lastName = namePieces.join(' ');
+            output.middleName = namePieces.splice(0, namePieces.length - 1).join(' ');
         }
+
+        output.lastName = namePieces[0];
 
         // Return parsed information
         return output;
