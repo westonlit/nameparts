@@ -16,12 +16,34 @@ describe('NameParts.js', function() {
 
     describe('parse()', function() {
         it('should parse a simple name', function() {
-            var nameParts = NameParts.parse('Ben Jacob');
+            var nameParts = NameParts.parse('John Jacob');
 
             // Parse results
-            expect(nameParts.fullName).toBe('Ben Jacob');
-            expect(nameParts.firstName).toBe('Ben');
+            expect(nameParts.fullName).toBe('John Jacob');
+            expect(nameParts.firstName).toBe('John');
             expect(nameParts.lastName).toBe('Jacob');
+
+            // Members not used for this result
+            expect(nameParts.salutation).toBeNull();
+            expect(nameParts.middleName).toBeNull();
+            expect(nameParts.generation).toBeNull();
+            expect(nameParts.suffix).toBeNull();
+            expect(nameParts.aliases).toBeNull();
+
+            // Flags
+            expect(nameParts.hasCorporateEntity).toBe(false);
+            expect(nameParts.hasNonName).toBe(false);
+            expect(nameParts.hasLnPrefix).toBe(false);
+            expect(nameParts.hasSupplementalInfo).toBe(false);
+        });
+
+        it('should parse a simple name, whose first name matches a LN Prefix', function() {
+            var nameParts = NameParts.parse('Ben Franklin');
+
+            // Parse results
+            expect(nameParts.fullName).toBe('Ben Franklin');
+            expect(nameParts.firstName).toBe('Ben');
+            expect(nameParts.lastName).toBe('Franklin');
 
             // Members not used for this result
             expect(nameParts.salutation).toBeNull();
