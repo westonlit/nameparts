@@ -16,11 +16,11 @@ describe('NameParts.js', function() {
 
     describe('parse()', function() {
         it('should parse a simple name', function() {
-            var nameParts = NameParts.parse('John Jacob');
+            var nameParts = NameParts.parse('Ben Jacob');
 
             // Parse results
-            expect(nameParts.fullName).toBe('John Jacob');
-            expect(nameParts.firstName).toBe('John');
+            expect(nameParts.fullName).toBe('Ben Jacob');
+            expect(nameParts.firstName).toBe('Ben');
             expect(nameParts.lastName).toBe('Jacob');
 
             // Members not used for this result
