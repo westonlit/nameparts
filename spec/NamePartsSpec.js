@@ -7,7 +7,7 @@ describe('NameParts.js', function() {
 
     it('should load', function() {
         expect(NameParts).toBeDefined();
-        expect(typeof NameParts).toBe('object');
+        expect(typeof NameParts).toBe('function');
     });
 
     it('should have all expected members', function() {

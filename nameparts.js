@@ -34,9 +34,8 @@
 
     var SUPPLEMENTAL_INFO = ['WIFE OF', 'HUSBAND OF', 'SON OF', 'DAUGHTER OF', 'DECEASED'];
 
-    function NameParts() {}
 
-    NameParts.prototype.parse = function(name) {
+    function parse (name) {
         var modifiedName = name;
         var output = {
             fullName: name,
@@ -181,9 +180,11 @@
 
     // Export
     if (typeof module !== 'undefined' && module.exports) {
-        module.exports = new NameParts();
+        module.exports = parse;
+        module.exports.parse = parse;
+    } else {
+        // Save to either 'window' or 'global'
+        root.NameParts = parse;
+        root.NameParts.parse = parse;
     }
-
-    // Save to either 'window' or 'global'
-    root.NameParts = new NameParts();
 })(this);
