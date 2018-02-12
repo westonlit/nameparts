@@ -1,2 +1,9 @@
 .DS_Store
-node_modules
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+nameparts-*.tar

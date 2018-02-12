@@ -1,29 +1,24 @@
-nameparts
-=========
-[![Build Status](https://travis-ci.org/Ghary/nameparts.svg)](https://travis-ci.org/Ghary/nameparts)
+# nameparts
+[![Build Status](https://travis-ci.org/westonlit/nameparts.svg)](https://travis-ci.org/westonlit/nameparts)
 
-nameparts is a code port from a Python project to NodeJS. The original Python module written by
-[James Polera](https://github.com/polera) to address the problem of having to split full names into
-individual parts (first, middle, last, etc.).
+nameparts is a code port from a Python project to NodeJS to Elixir. The original Python module was written by [James Polera](https://github.com/polera) to address the problem of having to split full names into individual parts (first, middle, last, etc.) and ported to NodeJS by [Gary Slawinski](https://github.com/Ghary).
 
-To use this module:
-```
-> var NameParts = require('nameparts');
-> var parts = NameParts.parse('Bruce Wayne a/k/a Batman');
-> parts.firstName;
-'Bruce'
-> parts.lastName;
-'Wayne'
-> parts.aliases[0];
-'Batman'
+## Installation
+
+Add `nameparts` to your list of dependencies in `mix.exs`:
+
+```elixir
+def deps do
+  [
+    {:nameparts, "~> 0.1.0"}
+  ]
+end
 ```
 
-Installing
-----------
-```
-npm install nameparts
-```
+## Usage
 
-License
--------
+Documentation can be found at [https://hexdocs.pm/nameparts](https://hexdocs.pm/nameparts).
+
+## License
+
 nameparts is released under the BSD license.
