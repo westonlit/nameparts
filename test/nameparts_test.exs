@@ -2,6 +2,14 @@ defmodule NamepartsTest do
   use ExUnit.Case
   doctest Nameparts
 
+  test "does not parse a non-string" do
+    assert {:error, "must be string"} = Nameparts.parse(3)
+    assert {:error, "must be string"} = Nameparts.parse(["j"])
+    assert {:error, "must be string"} = Nameparts.parse(:ok)
+    assert {:error, "must be string"} = Nameparts.parse({:ok, "yay"})
+    assert {:error, "must be string"} = Nameparts.parse(Date.utc_today())
+  end
+
   test "returns a Nameparts struct" do
     {:ok, name_parts} = Nameparts.parse("John")
     assert name_parts == %Nameparts{full_name: "John", first_name: "John"}
@@ -258,6 +266,28 @@ defmodule NamepartsTest do
     assert name_parts.last_name == "Johnson"
     assert name_parts.has_non_name == true
     assert name_parts.aliases |> Enum.at(0) == "The Rock"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "parses a nickname using single quotes" do
+    {:ok, name_parts} = Nameparts.parse("O'Shea 'Ice Cube' Jackson")
+
+    # Parse results
+    assert name_parts.full_name == "O'Shea 'Ice Cube' Jackson"
+    assert name_parts.first_name == "O'Shea"
+    assert name_parts.last_name == "Jackson"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "Ice Cube"
 
     # Members not used for this result
     assert is_nil(name_parts.salutation)
