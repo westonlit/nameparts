@@ -1,6 +1,6 @@
 defmodule Nameparts do
   @moduledoc """
-  Documentation for Nameparts.
+  Documentation for nameparts.
   """
   @enforce_keys [:full_name]
 
