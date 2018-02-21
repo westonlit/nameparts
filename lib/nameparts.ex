@@ -39,7 +39,7 @@ defmodule Nameparts do
     "DE", "DA", "DI", "LA", "DU", "DEL", "DEI", "VDA", "DELLO", "DELLA",
     "DEGLI", "DELLE", "VAN", "VON", "DER", "DEN", "HEER", "TEN", "TER",
     "VANDE", "VANDEN", "VANDER", "VOOR", "VER", "AAN", "MC", "BEN", "SAN",
-    "SAINZ", "BIN", "LI", "LE", "DES", "AM", "AUS\"M", "VOM", "ZUM", "ZUR",
+    "SAINZ", "BIN", "LI", "LE", "DES", "AM", "AUS'M", "VOM", "ZUM", "ZUR",
     "TEN", "IBN"
   ]
 
