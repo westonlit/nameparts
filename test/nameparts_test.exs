@@ -301,6 +301,28 @@ defmodule NamepartsTest do
     assert name_parts.has_supplemental_info == false
   end
 
+  test "parses one word nickname using single quotes" do
+    {:ok, name_parts} = Nameparts.parse("Justin 'Woodpond' Timberlake")
+
+    # Parse results
+    assert name_parts.full_name == "Justin 'Woodpond' Timberlake"
+    assert name_parts.first_name == "Justin"
+    assert name_parts.last_name == "Timberlake"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "Woodpond"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
   test "parses a nick name with many spaces" do
     {:ok, name_parts} = Nameparts.parse("\"The Nature Boy\" Ric Flair")
 
@@ -374,10 +396,136 @@ defmodule NamepartsTest do
     assert name_parts.has_ln_prefix == false
   end
 
+  test "parses name with suffix" do
+    {:ok, name_parts} = Nameparts.parse("Condoleezza Rice, Ph.D.")
+
+    # Parse results
+    assert name_parts.full_name == "Condoleezza Rice, Ph.D."
+    assert name_parts.first_name == "Condoleezza"
+    assert name_parts.suffix == "PhD"
+    assert name_parts.last_name == "Rice"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.aliases)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_non_name == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
   test "parses a name with multiple middle names" do
     {:ok, name_parts} = Nameparts.parse("George Herbert Walker Bush")
+
+    # Parse results
+    assert name_parts.full_name == "George Herbert Walker Bush"
     assert name_parts.first_name == "George"
     assert name_parts.middle_name == "Herbert Walker"
     assert name_parts.last_name == "Bush"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.suffix)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.aliases)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_non_name == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "parses a corporate entity" do
+    {:ok, name_parts} = Nameparts.parse("Apple Inc.")
+
+    # Parse results
+    assert name_parts.full_name == "Apple Inc."
+    assert name_parts.first_name == "Apple"
+    assert name_parts.last_name == "Inc"
+    assert name_parts.has_corporate_entity == true
+
+    # Members not used for this result
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.suffix)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.aliases)
+
+    # Flags
+    assert name_parts.has_non_name == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "parses a salutation" do
+    {:ok, name_parts} = Nameparts.parse("Mr. Drip Noodle")
+
+    # Parse results
+    assert name_parts.full_name == "Mr. Drip Noodle"
+    assert name_parts.salutation == "Mr"
+    assert name_parts.first_name == "Drip"
+    assert name_parts.last_name == "Noodle"
+
+
+    # Members not used for this result
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.suffix)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.aliases)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_non_name == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "gracefully handles an unclosed quoted alias" do
+    {:ok, name_parts} = Nameparts.parse("Dwayne \"The Rock Johnson")
+
+    # Parse results
+    assert name_parts.full_name == "Dwayne \"The Rock Johnson"
+    assert name_parts.first_name == "Dwayne"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "The Rock Johnson"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.last_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "gracefully handles an incorrectly closed quoted alias" do
+    {:ok, name_parts} = Nameparts.parse("Dwayne \"The Rock' Johnson")
+
+    # Parse results
+    assert name_parts.full_name == "Dwayne \"The Rock' Johnson"
+    assert name_parts.first_name == "Dwayne"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "The Rock' Johnson"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.last_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
   end
 end

@@ -43,6 +43,7 @@ defmodule AliasParts do
     {full_alias, remaining}
   end
 
+  # edge case, when the open and close quote types differ
   defp do_concat_alias(type, alias_parts, remaining, false) do
     do_concat_alias(type, alias_parts, remaining)
   end

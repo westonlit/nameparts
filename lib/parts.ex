@@ -88,8 +88,6 @@ defmodule Parts do
     check_types(part)
   end
 
-  defp classify_part(part), do: part
-
   defp check_types(part) do
     Enum.reduce(@type_lists, part, fn(x, acc) -> check_type(x, acc) end)
   end
