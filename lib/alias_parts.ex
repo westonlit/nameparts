@@ -1,7 +1,15 @@
 defmodule AliasParts do
-  def handle("non_name", [%{type: "the"} = first | rest]) do
-    [head | tail] = rest
+  # edge case, when the string ends with unfinished alias starting with the
+  def handle("non_name", [%{type: "the"} = head | []]) do
+    {head.content, []}
+  end
+
+  def handle("non_name", [%{type: "the"} = first | [head | tail]]) do
     {"#{first.content} #{head.content}", tail}
+  end
+
+  def handle("non_name", [%{type: "begin" <> _} | _] = remaining) do
+    handle("quoted", remaining)
   end
 
   def handle("non_name", [head | tail]) do

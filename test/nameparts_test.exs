@@ -527,4 +527,56 @@ defmodule NamepartsTest do
     assert name_parts.has_ln_prefix == false
     assert name_parts.has_supplemental_info == false
   end
+
+  test "parses a quoted alias preceded by a non-name" do
+    {:ok, name_parts} =
+      Nameparts.parse(
+        "André Benjamin a/k/a \"André 3000\" a/k/a \"Percival Jenkins\" f/k/a \"André\""
+      )
+
+    # Parse results
+    assert name_parts.full_name ==
+             "André Benjamin a/k/a \"André 3000\" a/k/a \"Percival Jenkins\" f/k/a \"André\""
+
+    assert name_parts.first_name == "André"
+    assert name_parts.last_name == "Benjamin"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "André 3000"
+    assert name_parts.aliases |> Enum.at(1) == "Percival Jenkins"
+    assert name_parts.aliases |> Enum.at(2) == "André"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
+
+  test "gracefully handles an unfinished alias starting with 'the'" do
+    {:ok, name_parts} = Nameparts.parse("Mohammed Ali aka The")
+
+    # Parse results
+    assert name_parts.full_name == "Mohammed Ali aka The"
+
+    assert name_parts.first_name == "Mohammed"
+    assert name_parts.last_name == "Ali"
+    assert name_parts.has_non_name == true
+    assert name_parts.aliases |> Enum.at(0) == "The"
+
+    # Members not used for this result
+    assert is_nil(name_parts.salutation)
+    assert is_nil(name_parts.middle_name)
+    assert is_nil(name_parts.generation)
+    assert is_nil(name_parts.suffix)
+
+    # Flags
+    assert name_parts.has_corporate_entity == false
+    assert name_parts.has_ln_prefix == false
+    assert name_parts.has_supplemental_info == false
+  end
 end

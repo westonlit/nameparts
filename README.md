@@ -1,7 +1,7 @@
 # nameparts
 [![Build Status](https://travis-ci.org/westonlit/nameparts.svg)](https://travis-ci.org/westonlit/nameparts) [![Coverage Status](https://coveralls.io/repos/github/westonlit/nameparts/badge.svg?branch=master)](https://coveralls.io/github/westonlit/nameparts?branch=master) [![hex.pm version](https://img.shields.io/hexpm/v/nameparts.svg)](https://hex.pm/packages/nameparts)
 
-nameparts is a code port from a Python project to NodeJS to Elixir. The original Python module was written by [James Polera](https://github.com/polera) to address the problem of having to split full names into individual parts (first, middle, last, etc.) and ported to NodeJS by [Gary Slawinski](https://github.com/Ghary).
+nameparts is a code port from a Python project to NodeJS to **Elixir**. The original Python module was written by [James Polera](https://github.com/polera) to address the problem of having to split full names into individual parts (first, middle, last, etc.) and ported to NodeJS by [Gary Slawinski](https://github.com/Ghary).
 
 ## Installation
 
@@ -9,9 +9,7 @@ Add `nameparts` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [
-    {:nameparts, "~> 0.1.0"}
-  ]
+  [{:nameparts, "~> 0.1.0"}]
 end
 ```
 

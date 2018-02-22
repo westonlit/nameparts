@@ -4,7 +4,7 @@ defmodule Nameparts.MixProject do
   def project do
     [
       app: :nameparts,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       description: description(),
@@ -21,6 +21,7 @@ defmodule Nameparts.MixProject do
       source_url: "https://github.com/westonlit/nameparts",
       docs: [
         extras: ["README.md"],
+        main: "readme",
         filter_prefix: "Nameparts"
       ]
     ]
