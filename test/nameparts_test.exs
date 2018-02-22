@@ -471,7 +471,6 @@ defmodule NamepartsTest do
     assert name_parts.first_name == "Drip"
     assert name_parts.last_name == "Noodle"
 
-
     # Members not used for this result
     assert is_nil(name_parts.middle_name)
     assert is_nil(name_parts.suffix)

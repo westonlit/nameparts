@@ -12,14 +12,19 @@ defmodule Parts do
   ]
 
   @type_lists [
-    "salutation", "generation", "suffix", "ln_prefix",
-    "non_name", "corp_entity", "supplemental"
+    "salutation",
+    "generation",
+    "suffix",
+    "ln_prefix",
+    "non_name",
+    "corp_entity",
+    "supplemental"
   ]
 
   def classify(name_pieces), do: classify([], name_pieces)
 
   def classify(classified, []) do
-    Enum.map(classified, &(cleanup(&1)))
+    Enum.map(classified, &cleanup(&1))
   end
 
   def classify(classified, [head | tail]) do
@@ -28,8 +33,8 @@ defmodule Parts do
   end
 
   defp cleanup(%Parts{} = part) do
-     Map.from_struct(part)
-     |> trim()
+    Map.from_struct(part)
+    |> trim()
   end
 
   defp trim(part_map) do
@@ -44,15 +49,21 @@ defmodule Parts do
     {lo, up, fi, la} = get_name_piece_data(name_piece)
 
     %Parts{
-      content: name_piece, index: index, uppercase: up,
-      lowercase: lo, starts_with: fi, ends_with: la
+      content: name_piece,
+      index: index,
+      uppercase: up,
+      lowercase: lo,
+      starts_with: fi,
+      ends_with: la
     }
   end
 
   defp get_name_piece_data(name_piece) do
     {
-      String.downcase(name_piece), String.upcase(name_piece),
-      String.first(name_piece), String.last(name_piece)
+      String.downcase(name_piece),
+      String.upcase(name_piece),
+      String.first(name_piece),
+      String.last(name_piece)
     }
   end
 
@@ -89,7 +100,7 @@ defmodule Parts do
   end
 
   defp check_types(part) do
-    Enum.reduce(@type_lists, part, fn(x, acc) -> check_type(x, acc) end)
+    Enum.reduce(@type_lists, part, fn x, acc -> check_type(x, acc) end)
   end
 
   defp check_type(type, part) do
@@ -105,19 +116,73 @@ defmodule Parts do
 
   defp get_type_list("salutation") do
     [
-      "MR", "MS", "MRS", "DR", "MISS", "DOCTOR", "CORP", "SGT", "PVT", "JUDGE",
-      "CAPT", "COL", "MAJ", "LT", "LIEUTENANT", "PRM", "PATROLMAN", "HON",
-      "OFFICER", "REV", "PRES", "PRESIDENT", "GOV", "GOVERNOR", "VICE PRESIDENT",
-      "VP", "MAYOR", "SIR", "MADAM", "HONERABLE"
+      "MR",
+      "MS",
+      "MRS",
+      "DR",
+      "MISS",
+      "DOCTOR",
+      "CORP",
+      "SGT",
+      "PVT",
+      "JUDGE",
+      "CAPT",
+      "COL",
+      "MAJ",
+      "LT",
+      "LIEUTENANT",
+      "PRM",
+      "PATROLMAN",
+      "HON",
+      "OFFICER",
+      "REV",
+      "PRES",
+      "PRESIDENT",
+      "GOV",
+      "GOVERNOR",
+      "VICE PRESIDENT",
+      "VP",
+      "MAYOR",
+      "SIR",
+      "MADAM",
+      "HONERABLE"
     ]
   end
 
   defp get_type_list("generation") do
     [
-      "JR", "SR", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-      "1ST", "2ND", "3RD", "4TH", "5TH", "6TH", "7TH", "8TH", "9TH", "10TH",
-      "FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH",
-      "EIGHTH", "NINTH", "TENTH"
+      "JR",
+      "SR",
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX",
+      "X",
+      "1ST",
+      "2ND",
+      "3RD",
+      "4TH",
+      "5TH",
+      "6TH",
+      "7TH",
+      "8TH",
+      "9TH",
+      "10TH",
+      "FIRST",
+      "SECOND",
+      "THIRD",
+      "FOURTH",
+      "FIFTH",
+      "SIXTH",
+      "SEVENTH",
+      "EIGHTH",
+      "NINTH",
+      "TENTH"
     ]
   end
 
@@ -127,11 +192,46 @@ defmodule Parts do
 
   defp get_type_list("ln_prefix") do
     [
-      "DE", "DA", "DI", "LA", "DU", "DEL", "DEI", "VDA", "DELLO", "DELLA",
-      "DEGLI", "DELLE", "VAN", "VON", "DER", "DEN", "HEER", "TEN", "TER",
-      "VANDE", "VANDEN", "VANDER", "VOOR", "VER", "AAN", "MC", "BEN", "SAN",
-      "SAINZ", "BIN", "LI", "LE", "DES", "AM", "AUS'M", "VOM", "ZUM", "ZUR",
-      "TEN", "IBN"
+      "DE",
+      "DA",
+      "DI",
+      "LA",
+      "DU",
+      "DEL",
+      "DEI",
+      "VDA",
+      "DELLO",
+      "DELLA",
+      "DEGLI",
+      "DELLE",
+      "VAN",
+      "VON",
+      "DER",
+      "DEN",
+      "HEER",
+      "TEN",
+      "TER",
+      "VANDE",
+      "VANDEN",
+      "VANDER",
+      "VOOR",
+      "VER",
+      "AAN",
+      "MC",
+      "BEN",
+      "SAN",
+      "SAINZ",
+      "BIN",
+      "LI",
+      "LE",
+      "DES",
+      "AM",
+      "AUS'M",
+      "VOM",
+      "ZUM",
+      "ZUR",
+      "TEN",
+      "IBN"
     ]
   end
 
@@ -141,8 +241,23 @@ defmodule Parts do
 
   defp get_type_list("corp_entity") do
     [
-      "NA", "CORP", "CO", "INC", "ASSOCIATES", "SERVICE", "LLC", "LLP", "PARTNERS",
-      "RA", "CO", "COUNTY", "STATE", "BANK", "GROUP", "MUTUAL", "FARGO"
+      "NA",
+      "CORP",
+      "CO",
+      "INC",
+      "ASSOCIATES",
+      "SERVICE",
+      "LLC",
+      "LLP",
+      "PARTNERS",
+      "RA",
+      "CO",
+      "COUNTY",
+      "STATE",
+      "BANK",
+      "GROUP",
+      "MUTUAL",
+      "FARGO"
     ]
   end
 
