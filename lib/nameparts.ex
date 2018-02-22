@@ -64,5 +64,6 @@ defmodule Nameparts do
     Regex.replace(~r/\s\s+/, name, " ")
   end
 
+  @doc false
   def new(name), do: %Nameparts{full_name: name}
 end

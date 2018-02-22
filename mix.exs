@@ -19,7 +19,10 @@ defmodule Nameparts.MixProject do
       ],
       name: "nameparts",
       source_url: "https://github.com/westonlit/nameparts",
-      docs: [extras: ["README.md"]]
+      docs: [
+        extras: ["README.md"],
+        filter_prefix: "Nameparts"
+      ]
     ]
   end
 
