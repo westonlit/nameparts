@@ -17,7 +17,7 @@ defmodule AliasParts do
     concat_alias(begin_type, classified)
   end
 
-  defp concat_alias(type, [%{type: "begin*"} = head | tail]) do
+  defp concat_alias(type, [%{type: "begin" <> _} = head | tail]) do
     do_concat_alias(type, [head.content], tail)
   end
 

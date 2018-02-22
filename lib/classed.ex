@@ -19,7 +19,7 @@ defmodule Classed do
     do_assign_alias(nameparts, kept, full_alias, new_tail)
   end
 
-  defp do_assign(%Nameparts{} = nameparts, kept, [%{type: "begin*"} | _] = classified) do
+  defp do_assign(%Nameparts{} = nameparts, kept, [%{type: "begin" <> _} | _] = classified) do
     {full_alias, new_tail} = AliasParts.handle("quoted", classified)
     do_assign_alias(nameparts, kept, full_alias, new_tail)
   end
@@ -34,7 +34,7 @@ defmodule Classed do
   end
 
   defp do_assign(%Nameparts{} = nameparts, kept, [%{type: "ln_prefix"} = head | [first | rest]]) do
-    new_kept = kept ++ ["#{head.content} #{first}"]
+    new_kept = kept ++ ["#{head.content} #{first.content}"]
     do_assign(%{nameparts | has_ln_prefix: true}, new_kept, rest)
   end
 

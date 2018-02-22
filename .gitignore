@@ -7,3 +7,4 @@
 erl_crash.dump
 *.ez
 nameparts-*.tar
+.elixir-ls
