@@ -1,4 +1,4 @@
-defmodule Part do
+defmodule Parts do
   alias __MODULE__
 
   defstruct [
@@ -27,7 +27,7 @@ defmodule Part do
     classify(classified ++ [checked], tail)
   end
 
-  defp cleanup(%Part{} = part) do
+  defp cleanup(%Parts{} = part) do
      Map.from_struct(part)
      |> trim()
   end
@@ -43,7 +43,7 @@ defmodule Part do
   defp new({name_piece, index}) do
     {lo, up, fi, la} = get_name_piece_data(name_piece)
 
-    %Part{
+    %Parts{
       content: name_piece, index: index, uppercase: up,
       lowercase: lo, starts_with: fi, ends_with: la
     }
@@ -56,27 +56,35 @@ defmodule Part do
     }
   end
 
-  defp classify_part(%Part{type: nil, lowercase: "the"} = part) do
+  defp classify_part(%Parts{type: nil, lowercase: "the"} = part) do
     %{part | type: "the"}
   end
 
-  defp classify_part(%Part{type: nil, starts_with: "'"} = part) do
+  defp classify_part(%Parts{type: nil, starts_with: "'", ends_with: "'"} = part) do
+    %{part | type: "begin_end"}
+  end
+
+  defp classify_part(%Parts{type: nil, starts_with: "\"", ends_with: "\""} = part) do
+    %{part | type: "begin_end"}
+  end
+
+  defp classify_part(%Parts{type: nil, starts_with: "'"} = part) do
     %{part | type: "begin_sq"}
   end
 
-  defp classify_part(%Part{type: nil, starts_with: "\""} = part) do
+  defp classify_part(%Parts{type: nil, starts_with: "\""} = part) do
     %{part | type: "begin_dq"}
   end
 
-  defp classify_part(%Part{type: nil, ends_with: "'"} = part) do
+  defp classify_part(%Parts{type: nil, ends_with: "'"} = part) do
     %{part | type: "end_sq"}
   end
 
-  defp classify_part(%Part{type: nil, ends_with: "\""} = part) do
+  defp classify_part(%Parts{type: nil, ends_with: "\""} = part) do
     %{part | type: "end_dq"}
   end
 
-  defp classify_part(%Part{type: nil} = part) do
+  defp classify_part(%Parts{type: nil} = part) do
     check_types(part)
   end
 

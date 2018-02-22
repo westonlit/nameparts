@@ -3,11 +3,11 @@ defmodule NamepartsTest do
   doctest Nameparts
 
   test "does not parse a non-string" do
-    assert {:error, "must be string"} = Nameparts.parse(3)
-    assert {:error, "must be string"} = Nameparts.parse(["j"])
-    assert {:error, "must be string"} = Nameparts.parse(:ok)
-    assert {:error, "must be string"} = Nameparts.parse({:ok, "yay"})
-    assert {:error, "must be string"} = Nameparts.parse(Date.utc_today())
+    assert {:error, "must be a string"} = Nameparts.parse(3)
+    assert {:error, "must be a string"} = Nameparts.parse(["j"])
+    assert {:error, "must be a string"} = Nameparts.parse(:ok)
+    assert {:error, "must be a string"} = Nameparts.parse({:ok, "yay"})
+    assert {:error, "must be a string"} = Nameparts.parse(Date.utc_today())
   end
 
   test "returns a Nameparts struct" do
